@@ -14,5 +14,99 @@
 }
 
 .hero-slideshow .slide.active {
-    opacity: 20;
+    opacity: 70;
+}
+
+.fireworks-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.fireworks-content {
+    background: transparent;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: white;
+    animation: scale-up 0.5s ease;
+    z-index: 10000;
+}
+
+#randomImage, #momentDescription {
+    transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes scale-up {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pyro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pyro > .before, .pyro > .after {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 #fff;
+    animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+}
+
+.pyro > .after {
+    animation-delay: 1.25s, 1.25s, 1.25s;
+    animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+@keyframes bang {
+    to {
+        box-shadow: -70px -33px #ff00ea, -124px -44px #ff006a, 58px -27px #ff00c8, 125px -113px #ff0400, 83px -128px #00ff33, 54px -67px #00ff77, 92px -10px #ff0400, 46px -108px #ff0088, 105px -89px #00ff4d, 134px -144px #00ff73, 126px -58px #ff0095, 70px -82px #ff00ea, 56px -92px #ff00ea, 106px -61px #ff00ea, 84px -128px #ff00ea, 116px -128px #ff00ea, 94px -92px #ff00ea, 76px -82px #ff00ea, 66px -92px #ff00ea, 96px -61px #ff00ea;
+    }
+}
+
+@keyframes gravity {
+    to {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+}
+
+@keyframes position {
+    0%, 19.9% {
+        margin-top: 10%;
+        margin-left: 40%;
+    }
+    20%, 39.9% {
+        margin-top: 40%;
+        margin-left: 30%;
+    }
+    40%, 59.9% {
+        margin-top: 20%;
+        margin-left: 70%;
+    }
+    60%, 79.9% {
+        margin-top: 30%;
+        margin-left: 20%;
+    }
+    80%, 99.9% {
+        margin-top: 30%;
+        margin-left: 80%;
+    }
 }

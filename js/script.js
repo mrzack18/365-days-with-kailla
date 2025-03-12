@@ -1,7 +1,7 @@
 // Countdown Timer
-const countDownDate = new Date("March 12, 2025 17:00:00").getTime();
+const countDownDate = new Date("March 12, 2025 17:10:00").getTime();
 
-const x = setInterval(function() {
+const countdownInterval = setInterval(function() {
     const now = new Date().getTime();
     const distance = countDownDate - now;
 
@@ -16,11 +16,12 @@ const x = setInterval(function() {
     document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
 
     if (distance < 0) {
-        clearInterval(x);
+        clearInterval(countdownInterval);
         document.getElementById("days").innerHTML = "000";
         document.getElementById("hours").innerHTML = "00";
         document.getElementById("minutes").innerHTML = "00";
         document.getElementById("seconds").innerHTML = "00";
+        showFireworks();
     }
 }, 1000);
 
@@ -173,5 +174,104 @@ coupleDots.forEach((dot, index) => {
 // Auto slide every 5 seconds
 setInterval(() => moveSlide(1), 5000);
 
-// Initialize slideshow when page loads
-document.addEventListener('DOMContentLoaded', initHeroSlideshow);
+function showFireworks() {
+    const fireworksPopup = document.getElementById('fireworksPopup');
+    if (fireworksPopup) {
+        fireworksPopup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Play fireworks sound
+        const fireworksSound = new Audio('./assets/sounds/Fireworks with Sound Effects.mp3');
+        fireworksSound.volume = 0.7; // Increase volume to 70%
+        
+        // Make sure audio is loaded before playing
+        fireworksSound.addEventListener('canplaythrough', () => {
+            const playPromise = fireworksSound.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio playback failed:", error);
+                });
+            }
+        });
+    }
+}
+
+function closeFireworks() {
+    const fireworksPopup = document.getElementById('fireworksPopup');
+    if (fireworksPopup) {
+        fireworksPopup.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+}
+
+// ... existing code ...
+
+function sendToWhatsApp(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const message = document.getElementById('message').value;
+    
+    // Create new wish element
+    const wishesContainer = document.getElementById('wishesContainer');
+    const newWish = document.createElement('div');
+    newWish.className = 'bg-white p-6 rounded-2xl shadow-lg hover:-translate-y-1 transition-transform';
+    newWish.innerHTML = `
+        <p class="text-gray-600 mb-2 italic">"${message}"</p>
+        <p class="text-primary font-semibold">- ${name}</p>
+    `;
+    
+    // Add new wish to the container
+    wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
+    
+    // Reset form
+    document.getElementById('wishesForm').reset();
+}
+
+// Random Moments Data
+const moments = [
+    {
+        image: './assets/images/random/random (1).jpg',
+        description: 'Side by side, their smiles outshine the sun—simple yet full of love. ❤️'
+    },
+    {
+        image: './assets/images/random/random (2).jpg',
+        description: 'Dressed in fun, their laughter speaks louder than words. ✨'
+    },
+    {
+        image: './assets/images/random/random (3).jpg',
+        description: 'Joker smiles, playful hearts—love in every stroke. 💕'
+    },
+    {
+        image: './assets/images/random/random (4).jpg',
+        description: 'By the pond, lost in love—nature watches in awe 🌟'
+    },
+];
+
+function showRandomMoment() {
+    const randomIndex = Math.floor(Math.random() * moments.length);
+    const moment = moments[randomIndex];
+    
+    const image = document.getElementById('randomImage');
+    const description = document.getElementById('momentDescription');
+    
+    // Add fade-out effect
+    image.style.opacity = '0';
+    description.style.opacity = '0';
+    
+    setTimeout(() => {
+        image.src = moment.image;
+        description.textContent = moment.description;
+        
+        // Add fade-in effect
+        image.style.opacity = '1';
+        description.style.opacity = '1';
+    }, 300);
+}
+
+// Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    initHeroSlideshow();
+    showRandomMoment(); // Show initial random moment
+});
