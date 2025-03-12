@@ -1,0 +1,18 @@
+.carousel-container {
+    overflow: hidden;
+}
+.carousel-slides {
+    width: 400%;
+}
+.carousel-slides img {
+    width: 25%;
+    flex-shrink: 0;
+}
+
+.hero-slideshow .slide {
+    opacity: 0;
+}
+
+.hero-slideshow .slide.active {
+    opacity: 20;
+}
